@@ -1,0 +1,543 @@
+/* --- Estilos Generales y Reseteo Básico --- */
+body {
+    font-family: 'Inter', sans-serif; /* Fuente recomendada */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: #222;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* --- Estilos de la etiqueta main (contenedor principal del blog) --- */
+main {
+    display: flex; /* Para organizar la barra lateral y el contenido del blog */
+    gap: 30px; /* Espacio entre el contenido principal y la barra lateral */
+    max-width: 1200px;
+    margin: 30px auto; /* Centrar main y añadir margen superior/inferior */
+    padding: 20px; /* Añadir padding para evitar que el contenido toque los bordes */
+}
+
+/* ==== SECCIÓN HERO DE PÁGINAS INTERNAS (BLOG) ==== */
+#blog-hero {
+    background-color: var(--fondo-rosado); /* Asume que --fondo-rosado está definido en otra parte (ej. :root) */
+    text-align: center;
+    padding: 60px 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--rosa-principal); /* Asume que --rosa-principal está definido */
+    border-radius: 10px; /* Añadido para consistencia con otros elementos */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Añadido para consistencia */
+}
+
+#blog-hero h1 {
+    font-size: 3rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+#blog-hero p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* ==== CONTENIDO PRINCIPAL DEL BLOG ==== */
+#latest-posts {
+    flex-grow: 1; /* Permite que ocupe el espacio restante en main */
+    padding: 0; /* Eliminado padding para que el grid interno maneje el espaciado */
+}
+
+#latest-posts h2 {
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.blog-post-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna por defecto */
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* Media query para dos columnas en pantallas más grandes */
+@media (min-width: 768px) {
+    .blog-post-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+}
+
+/* --- Estilos de la Tarjeta de Artículo del Blog --- */
+.blog-post-card {
+    background-color: #fef1f7; /* Fondo rosado claro */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
+}
+
+.blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.blog-post-card > img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.blog-post-card .post-image-top { /* Asegura que la imagen superior tenga bordes redondeados */
+    border-radius: 10px 10px 0 0;
+}
+
+.blog-post-card .post-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permite que el contenido crezca y empuje el botón hacia abajo */
+}
+
+.post-content h3 {
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.post-content p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.post-content ol,
+.post-content ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.post-content li {
+    margin-bottom: 5px;
+}
+
+.post-content strong {
+    color: var(--rosa-principal); /* Utiliza la variable para consistencia */
+}
+
+.post-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.post-gallery img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.read-more-button {
+    align-self: flex-start; /* Alinea el botón a la izquierda */
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: auto; /* Empuja el botón al final de la tarjeta */
+}
+
+.read-more-button:hover {
+    background-color: #b0256e;
+    transform: scale(1.05);
+}
+
+/* ==== BARRA LATERAL DEL BLOG ==== */
+.blog-sidebar {
+    background-color: #fff0f6; /* Fondo rosado muy claro */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    height: fit-content; /* Ajusta la altura al contenido */
+    position: sticky; /* Se queda pegada al scroll */
+    top: 100px; /* Distancia desde la parte superior al hacer scroll */
+    min-width: 250px; /* Ancho mínimo para la barra lateral */
+}
+
+.blog-sidebar h2 {
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+    margin-bottom: 15px;
+}
+
+.blog-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.blog-sidebar li {
+    margin-bottom: 8px;
+}
+
+.blog-sidebar a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: #333; /* Color de texto por defecto */
+}
+
+.blog-sidebar a:hover {
+    background-color: var(--rosa-principal);
+    color: white;
+}
+
+.newsletter-sidebar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.newsletter-sidebar-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+.newsletter-sidebar-form button {
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.newsletter-sidebar-form button:hover {
+    background-color: #b0256e;
+}
+
+/* ==== PAGINACIÓN (Reutilizando estilos) ==== */
+.pagination {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.pagination ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.page-link {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid var(--rosa-principal);
+    border-radius: 5px;
+    color: var(--rosa-principal);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-link:hover:not(.disabled) {
+    background-color: var(--rosa-principal);
+    color: white;
+}
+
+.page-link.current {
+    background-color: var(--rosa-principal);
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.page-link.disabled {
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* --- Estilos del Overlay del Carrito (mantener para consistencia si el HTML lo incluye) --- */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.cart-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-modal {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 90%;
+    max-width: 500px; /* Ancho máximo para el modal */
+    max-height: 80vh; /* Altura máxima para evitar desbordamiento */
+    overflow-y: auto; /* Permite scroll si el contenido es largo */
+    transform: translateY(20px); /* Pequeña animación al aparecer */
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.cart-overlay.show .cart-modal {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.close-cart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2em;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.close-cart:hover {
+    color: #333;
+    background-color: #f0f0f0;
+}
+
+#cart-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222;
+    font-size: 2em;
+}
+
+#cart-items {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    gap: 15px;
+}
+
+.cart-item:last-child {
+    border-bottom: none; /* Eliminar borde del último ítem */
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.cart-item-info {
+    flex-grow: 1;
+}
+
+.cart-item-info h5 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.cart-item-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.remove-item {
+    color: #dc3545; /* Rojo para eliminar */
+    cursor: pointer;
+    font-size: 1.8em;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+.remove-item:hover {
+    color: #c82333;
+}
+
+.cart-total {
+    text-align: right;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+}
+
+.cart-total h4 {
+    font-size: 1.5em;
+    color: #222;
+    margin: 0;
+}
+
+.cart-total #cart-total-price {
+    color: #007bff; /* Color del precio total */
+}
+
+.checkout-button {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.checkout-button:active {
+    transform: translateY(0);
+}
+
+/* ==== RESPONSIVE (Móvil) ==== */
+@media (max-width: 992px) {
+    main {
+        flex-direction: column; /* Apila el contenido y la barra lateral en pantallas pequeñas */
+    }
+
+    .blog-sidebar {
+        order: -1; /* Mueve la barra lateral arriba en móvil */
+        position: static; /* Desactiva sticky en móvil */
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    #blog-hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #blog-hero h1 {
+        font-size: 2em;
+    }
+
+    #blog-hero p {
+        font-size: 1em;
+    }
+
+    #latest-posts h2 {
+        font-size: 2em;
+    }
+
+    .blog-post-card .post-content {
+        padding: 15px;
+    }
+
+    .blog-post-card h3 {
+        font-size: 1.5em;
+    }
+
+    .cart-modal {
+        padding: 20px;
+        width: 95%;
+    }
+
+    #cart-title {
+        font-size: 1.8em;
+    }
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item-info h5 {
+        font-size: 1em;
+    }
+
+    .cart-item-info p {
+        font-size: 0.85em;
+    }
+
+    .remove-item {
+        font-size: 1.5em;
+    }
+
+    .cart-total h4 {
+        font-size: 1.3em;
+    }
+
+    .checkout-button {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+}

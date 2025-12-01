@@ -1,0 +1,144 @@
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Concert+One&display=swap');
+
+/* Variables CSS para consistencia de colores y fuentes */
+:root {
+    --rosa-principal: #e91e63; /* Rosa vibrante */
+    --rosa-claro: #f8bbd0; /* Rosa para fondos sutiles */
+    --rosa-suave: #fff0f6; /* Rosa muy claro */
+    --gris-oscuro: #333333; /* Texto principal */
+    --gris-medio: #666666; /* Texto secundario */
+    --fondo-blanco: #ffffff; /* Fondo principal */
+    --sombra-sutil: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra para tarjetas */
+    --lila-medio: #c17bcf; /* Rosa vibrante */
+    --font-heading: 'Poppins', sans-serif;/* Fuente para los títulos */
+    --font-body: 'Lato', sans-serif; /* Fuente para el cuerpo del texto */
+    
+}
+
+/* Estilos globales y reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--gris-oscuro);
+    background-color: var(--fondo-blanco);
+    overflow-x: hidden; /* Evita el scroll horizontal en todos los dispositivos */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Asegura que las imágenes y videos sean responsive en todos los dispositivos */
+/* Se ajustan al ancho máximo de su contenedor y mantienen su proporción */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Elimina espacio extra debajo de las imágenes */
+}
+
+/* Estilos para botones primarios y secundarios (reutilizables) */
+.button-primary {
+    display: inline-block;
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: var(--font-body);
+    font-size: 1rem; /* Tamaño base para PC, se ajustará con media queries si es necesario */
+    text-align: center;
+}
+
+.button-primary:hover {
+    background-color: #b0256e; /* Tono más oscuro al pasar el ratón */
+    transform: scale(1.05);
+}
+
+.button-secondary {
+    display: inline-block;
+    background-color: white;
+    color: var(--rosa-principal);
+    padding: 12px 25px;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: var(--font-body);
+    font-size: 1rem; /* Tamaño base para PC, se ajustará con media queries si es necesario */
+    text-align: center;
+}
+
+.button-secondary:hover {
+    background-color: var(--rosa-principal);
+    color: white;
+}
+
+/* Estilos para contenedores principales de página */
+main {
+    padding-top: 80px; /* Espacio para el header fijo */
+}
+
+/* Responsive para tamaños de fuente base en diferentes pantallas */
+/* PC (Desktop) */
+@media (min-width: 1024px) {
+    body {
+        font-size: 18px; /* Tamaño de fuente para pantallas grandes */
+    }
+}
+
+/* Tabletas (Landscape) y Laptops pequeñas */
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 17px; /* Tamaño de fuente para tabletas */
+    }
+}
+
+/* Móviles y Tabletas (Portrait) */
+@media (max-width: 767px) {
+    body {
+        font-size: 16px; /* Tamaño de fuente para móviles */
+    }
+    .button-primary, .button-secondary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 480px) {
+    body {
+        font-size: 15px; /* Tamaño de fuente para móviles muy pequeños */
+    }
+    .button-primary, .button-secondary {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+}
+.add-to-cart-button.ver-opciones-btn {
+    /* Mantén el estilo base de tu botón */
+    background-color: #f8abf4; /* Un gris claro para indicar que no es compra inmediata */
+    color: #333; /* Texto oscuro */
+    border: 1px solid #ccc;
+}
+
+.add-to-cart-button.ver-opciones-btn:hover {
+    background-color: #f5bee9;
+    color: #FF69B4; /* Destaca con el color de tu marca */
+}

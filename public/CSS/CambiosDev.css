@@ -1,0 +1,162 @@
+/* Importa tus variables CSS si las tienes en un archivo separado */
+/* @import url('path/to/your/variables.css'); */
+
+/* Estilos específicos para la página de Cambios y Devoluciones */
+.cambios-devoluciones-main {
+    padding: 60px 20px;
+    max-width: 1000px; /* Ancho máximo para el contenido principal */
+    margin: auto;
+    background-color: var(--fondo-blanco); /* O el color de fondo que uses */
+}
+
+.policy-section {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.policy-section h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--rosa-principal);
+    margin-bottom: 20px;
+}
+
+.policy-section .intro-text {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--gris-oscuro);
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+.policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.policy-card {
+    background-color: var(--rosa-suave); /* Fondo suave para las tarjetas */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.policy-card:hover {
+    transform: translateY(-5px);
+}
+
+.policy-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--rosa-principal);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--rosa-principal); /* Línea debajo del título */
+    padding-bottom: 5px;
+    display: inline-block; /* Para que la línea se ajuste al texto */
+}
+
+.policy-card p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--gris-oscuro);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.policy-card ul,
+.policy-card ol {
+    list-style-position: inside; /* Numera o pone viñetas dentro del contenido */
+    padding-left: 0; /* Elimina el padding por defecto para mejor control */
+    margin-top: 15px;
+}
+
+.policy-card ul li,
+.policy-card ol li {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--gris-medio);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.policy-card ul li strong,
+.policy-card ol li strong {
+    color: var(--gris-oscuro);
+}
+
+.contact-info-policy {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid var(--rosa-principal);
+    margin-top: 50px;
+}
+
+.contact-info-policy h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 20px;
+}
+
+.contact-info-policy p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.contact-info-policy p i {
+    margin-right: 10px;
+    color: var(--rosa-principal);
+}
+
+.contact-info-policy a {
+    color: var(--rosa-principal);
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.contact-info-policy a:hover {
+    color: #b0256e;
+}
+
+/* Estilos para el botón primario (reutilizado de style.css) */
+.cambios-devoluciones-main .button-primary {
+    margin-top: 30px;
+    display: inline-block;
+    background-color: var(--rosa-claro); /* Color rosa claro para el botón primario */
+    color: var(--rosa-principal); /* Texto en rosa principal para contraste */
+    border: 2px solid var(--rosa-principal); /* Borde para definirlo */
+    /* Los demás estilos como padding, border-radius, font-weight, etc., se heredan o se definen en style.css */
+}
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .policy-section {
+        padding: 20px;
+    }
+
+    .policy-section h1 {
+        font-size: 2rem;
+    }
+
+    .policy-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+
+    .policy-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .contact-info-policy h2 {
+        font-size: 1.8rem;
+    }
+}

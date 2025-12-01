@@ -1,0 +1,177 @@
+/* Importación de la fuente Inter de Google Fonts para una tipografía limpia */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff; /* Un rosa pastel más suave */
+    color: #4a4a4a; /* Color de texto principal */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal de la página, centrado y con sombra */
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+/* Estilos para el contenedor de la boleta de venta */
+.invoice-container {
+    background-color: #ffffff;
+    border-radius: 1.5rem; /* Bordes más redondeados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más sutil */
+    padding: 3rem;
+    max-width: 700px;
+    width: 100%;
+}
+
+/* Título de la página */
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #b0256e;
+    margin-bottom: 2rem;
+}
+
+/* Estilos para la cabecera de la boleta */
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.invoice-header h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+/* Estilos para los detalles de la transacción */
+.transaction-details {
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed #e5e7eb; /* Línea punteada para un toque moderno */
+}
+
+.transaction-details p {
+    margin: 0.5rem 0;
+}
+
+.transaction-details p strong {
+    font-weight: 600;
+}
+
+/* Estilos para la lista de productos */
+.item-list-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #b0256e;
+    margin-bottom: 1.5rem;
+}
+
+.item-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.item-list-item:last-child {
+    border-bottom: none;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.item-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.item-name {
+    font-weight: 600;
+}
+
+.item-quantity {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.item-price {
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+/* Estilos para el total de la boleta */
+.receipt-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid #e5e7eb;
+    margin-top: 2rem;
+}
+
+.receipt-total .total-amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #b0256e;
+}
+
+/* Estilos para el botón de imprimir */
+.btn-print {
+    background-color: #b0256e;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-print:hover {
+    background-color: #a11b65;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries para la impresión */
+@media print {
+    body {
+        background-color: #ffffff;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .invoice-container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    .page-container {
+        padding: 0;
+    }
+}

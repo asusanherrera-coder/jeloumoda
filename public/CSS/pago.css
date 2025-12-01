@@ -1,0 +1,40 @@
+/* Estilos personalizados para la página de pago */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fef1f7;
+}
+
+/* Estilos para el radio button personalizado */
+.custom-radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.25em;
+    height: 1.25em;
+    border: 0.1em solid #b0256e;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.custom-radio::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.2s ease;
+    box-shadow: inset 1em 1em #b0256e;
+}
+
+.custom-radio:checked::before {
+    transform: scale(1);
+}

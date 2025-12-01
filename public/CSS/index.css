@@ -1,0 +1,392 @@
+/* Importar fuentes de Google Fonts (si no está en style.css) */
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Concert+One&display=swap'); */
+
+/* Variables CSS (si no está en style.css) */
+/* :root { ... } */
+
+/* ==== SECCIÓN HERO CON IMAGEN DE FONDO ==== */
+#hero-video {
+    position: relative;
+    width: 100%;
+    height: 85vh; /* Altura de la sección */
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para que la imagen cubra toda la sección sin distorsionarse */
+    z-index: -1;
+}
+
+.hero-overlay-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 0;
+    z-index: 1;
+}
+
+.hero-overlay-text h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+    max-width: 500px;
+}
+
+.hero-overlay-text p {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--gris-oscuro);
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+/* ==== SECCIÓN DE CARACTERÍSTICAS (FEATURES) ==== */
+#features {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#features h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 40px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.feature-item {
+    background-color: var(--rosa-suave); /* Usando la variable para consistencia */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--rosa-claro);
+    margin: 0 auto 20px;
+}
+
+.feature-icon-wrapper i {
+    font-size: 2.5rem;
+    color: var(--rosa-principal);
+}
+
+.feature-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+}
+
+/* ==== INTRODUCCIÓN A NOSOTROS (ABOUT US) ==== */
+#about-us-intro {
+    background-color: var(--rosa-suave);
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#about-us-intro h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 40px;
+}
+
+.about-us-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.about-us-text {
+    flex: 1;
+    text-align: left;
+}
+
+.about-us-text h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+.about-us-text p {
+    font-family: var(--font-body);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.about-us-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    justify-content: flex-start; /* Alinea los botones a la izquierda en desktop */
+}
+
+.about-us-image {
+    flex: 1;
+}
+
+.about-us-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ==== SECCIÓN "ARMA TU PACK" ==== */
+#pack-builder {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#pack-builder h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 30px;
+}
+
+.pack-content {
+    position: relative;
+    display: inline-block;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pack-content img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+.pack-content .button-primary {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+/* ==== SECCIÓN DE TESTIMONIOS ==== */
+#testimonials {
+    background-color: var(--rosa-suave); /* Usando la variable para consistencia */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#testimonials h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 40px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.testimonial-item {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.testimonial-item p {
+    font-family: var(--font-body);
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.client-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rosa-principal);
+}
+
+.client-info strong {
+    font-family: var(--font-body);
+    display: block;
+    font-size: 1.1rem;
+    color: var(--rosa-principal);
+}
+
+/* ==== RESPONSIVE (Móvil y Tablet) ==== */
+@media (max-width: 992px) {
+    #hero-video {
+        height: 70vh; /* Ajusta la altura del hero para tablets */
+    }
+
+    .hero-overlay-text h2 {
+        font-size: 2.2rem;
+    }
+
+    .hero-overlay-text p {
+        font-size: 1.1rem;
+    }
+
+    #features h2,
+    #about-us-intro h2,
+    #pack-builder h2,
+    #testimonials h2 {
+        font-size: 1.8rem; /* Ajusta los títulos de sección */
+    }
+
+    .about-us-content {
+        flex-direction: column; /* Apila el texto y la imagen */
+        text-align: center;
+    }
+
+    .about-us-text,
+    .about-us-image {
+        width: 100%;
+    }
+
+    .about-us-buttons {
+        justify-content: center; /* Centra los botones en móvil */
+        flex-wrap: wrap; /* Permite que los botones se envuelvan si no caben */
+    }
+
+    .pack-content .button-primary {
+        padding: 10px 20px; /* Botón más pequeño en móvil */
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #hero-video {
+        height: 60vh; /* Más pequeño para móviles */
+    }
+
+    .hero-overlay-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-overlay-text p {
+        font-size: 1rem;
+    }
+
+    #features,
+    #about-us-intro,
+    #pack-builder,
+    #testimonials {
+        padding: 40px 15px; /* Reduce el padding general */
+    }
+
+    #features h2,
+    #about-us-intro h2,
+    #pack-builder h2,
+    #testimonials h2 {
+        font-size: 1.6rem;
+    }
+
+    .features-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+
+    .feature-item,
+    .testimonial-item {
+        padding: 20px;
+    }
+
+    .feature-icon-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .feature-icon-wrapper i {
+        font-size: 2rem;
+    }
+
+    .feature-item h3 {
+        font-size: 1.3rem;
+    }
+
+    .about-us-text h3 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-overlay-text h2 {
+        font-size: 1.5rem;
+    }
+    .hero-overlay-text p {
+        font-size: 0.9rem;
+    }
+    .button-primary, .button-secondary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .about-us-buttons {
+        flex-direction: column; /* Apila los botones si no hay espacio */
+        gap: 10px;
+    }
+}

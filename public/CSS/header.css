@@ -1,0 +1,424 @@
+/* ==== HEADER ==== */
+header {
+    background-color: var(--rosa-suave);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.logo img {
+    height: 90px;
+    width: 140px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    font-family: var(--font-body);
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--gris-oscuro);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    background-color: var(--rosa-principal);
+    color: var(--fondo-blanco);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 20px;
+}
+
+.boton-buscar {
+    background-color: var(--rosa-principal);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.boton-buscar:hover {
+    background-color: var(--gris-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.icono-carrito, .icono-usuario {
+    font-size: 22px;
+    color: var(--gris-oscuro);
+    transition: color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.icono-carrito:hover, .icono-usuario:hover {
+    transform: scale(1.15);
+    color: var(--rosa-principal);
+}
+
+/* El menú hamburguesa inicialmente oculto en escritorio */
+.menu-toggle {
+    display: none; 
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--rosa-principal);
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.menu-toggle span:nth-child(3) { bottom: 0; }
+
+/* ==== RESPONSIVE (Móvil) ==== */
+@media (max-width: 992px) {
+    .header-content {
+        padding: 10px 20px;
+    }
+
+    /* Oculta el menú de navegación por defecto en móvil */
+    nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--rosa-suave);
+        box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+        padding: 20px 0;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    nav a {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+
+    .header-actions {
+        margin-top: 20px;
+        justify-content: center;
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+
+    .header-actions .search-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-actions .boton-buscar {
+        width: 80%;
+    }
+
+    /* Muestra el botón de menú hamburguesa */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Animación del menú hamburguesa */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+}
+/* header.css */
+
+/* Estilos para los íconos en el header */
+.header-actions .icono-buscar,
+.header-actions .icono-usuario {
+    font-size: 1.5rem; /* Tamaño de los íconos */
+    color: var(--gris-oscuro); /* Color por defecto */
+    transition: color 0.3s ease;
+    margin-left: 15px; /* Espacio entre los íconos */
+}
+
+.header-actions .icono-buscar:hover,
+.header-actions .icono-usuario:hover {
+    color: var(--rosa-principal); /* Color al pasar el mouse */
+}
+
+/* style.css (o un nuevo archivo search-modal.css) */
+
+/* ==== Estilos para el modal de búsqueda ==== */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+.search-overlay.show {
+    display: flex; /* Muestra el modal cuando tiene la clase 'show' */
+}
+
+.search-modal {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease-out; /* Reutiliza la animación del carrito */
+}
+
+.search-modal h2 {
+    font-family: var(--font-heading);
+    color: var(--rosa-principal);
+    margin-bottom: 25px;
+}
+
+.close-search {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gris-medio);
+}
+
+.search-input-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.search-input-container input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border: 1px solid var(--rosa-principal);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input-container input[type="text"]:focus {
+    border-color: var(--gris-oscuro);
+    box-shadow: 0 0 8px rgba(233, 30, 99, 0.3);
+}
+
+.search-input-container button {
+    background-color: var(--rosa-principal);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-input-container button:hover {
+    background-color: #b0256e;
+    transform: scale(1.05);
+}
+
+/* Reutiliza la animación fadeIn si ya la tienes en tu style.css */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.icono-notificaciones {
+    position: relative;
+    margin-left: 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.notificaciones-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.notificaciones-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 10px;
+}
+
+.notificaciones-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notificaciones-dropdown li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.notificaciones-dropdown li:last-child {
+    border-bottom: none;
+}
+/* CSS/header.css */
+
+/* Estilo del Botón de Usuario (visible en la Navbar) */
+.user-menu-wrapper {
+    position: relative; /* Es importante para posicionar el dropdown relativo a este contenedor */
+}
+
+.user-toggle-btn {
+    background-color: #f8f8f8; /* Un fondo gris claro */
+    border: 1px solid #ddd; /* Borde sutil */
+    color: #333; /* Texto oscuro */
+    padding: 8px 12px;
+    border-radius: 20px; /* Borde más redondeado para un look moderno */
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    display: flex; /* Para alinear el icono y el texto */
+    align-items: center;
+    gap: 8px; /* Espacio entre el icono y el texto */
+}
+
+.user-toggle-btn i {
+    font-size: 16px;
+    color: #FF69B4; /* Icono en tu color de marca (rosa) */
+}
+
+.user-toggle-btn:hover {
+    background-color: #eee; /* Ligeramente más oscuro al pasar el mouse */
+}
+
+/* Estilo del Dropdown (el menú que aparece) */
+.user-dropdown-menu {
+    display: none; /* Por defecto está oculto, el JS lo muestra/oculta */
+    position: absolute;
+    top: 130%; /* Posiciona el menú un poco debajo del botón */
+    right: 0; /* Alinea el menú a la derecha del botón */
+    background-color: white; /* Fondo blanco para el menú */
+    border: 1px solid #ddd; /* Borde sutil */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    border-radius: 6px; /* Bordes ligeramente redondeados */
+    min-width: 180px; /* Ancho mínimo del menú */
+    padding: 5px 0; /* Espaciado interno */
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Estilo de los ítems dentro del dropdown (Dashboard, Cerrar sesión) */
+.user-dropdown-menu .dropdown-item {
+    display: block; /* Cada ítem ocupa su propia línea */
+    width: 100%;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333;
+    border: none; /* Elimina bordes de botones o enlaces */
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 15px; /* Un tamaño de fuente adecuado */
+}
+
+.user-dropdown-menu .dropdown-item:hover {
+    background-color: #f5f5f5; /* Fondo gris claro al pasar el mouse */
+    color: #FF69B4; /* Color de marca para el texto en hover */
+}
+
+/* Estilo específico para el botón de cerrar sesión si lo deseas */
+.user-dropdown-menu .logout-btn {
+    /* Puedes añadir un color de texto diferente si quieres */
+    color: #d9534f; /* Rojo suave para "Cerrar sesión" */
+}
+
+.user-dropdown-menu .logout-btn:hover {
+    background-color: #fbe6e6; /* Fondo más claro para "Cerrar sesión" en hover */
+    color: #c9302c; /* Rojo más fuerte */
+}

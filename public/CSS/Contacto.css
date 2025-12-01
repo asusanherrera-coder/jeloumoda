@@ -1,0 +1,275 @@
+
+/* ==== SECCIÓN HERO DE PÁGINAS INTERNAS (CONTACTO) ==== */
+#contact-hero {
+    background-color: var(--fondo-rosado);
+    text-align: center;
+    padding: 60px 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--rosa-principal);
+}
+
+#contact-hero h1 {
+    font-size: 3rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+#contact-hero p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* ==== INFORMACIÓN DE CONTACTO (GRID) ==== */
+#contact-info {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+#contact-info h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: var(--rosa-principal);
+}
+
+.contact-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.contact-method {
+    background-color: #fef1f7;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.contact-method:hover {
+    transform: translateY(-5px);
+}
+
+.contact-method h3 {
+    color: var(--rosa-principal);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.contact-method h3 i {
+    margin-right: 10px;
+}
+
+.contact-method p {
+    margin-bottom: 10px;
+}
+
+.contact-method ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-method ul li a,
+.contact-method p a {
+    font-weight: bold;
+    color: var(--texto-base);
+    transition: color 0.3s;
+}
+
+.contact-method ul li a:hover,
+.contact-method p a:hover {
+    color: var(--rosa-principal);
+}
+
+.contact-method .schedule {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 15px;
+}
+
+/* Enlace para ver en mapa */
+.contact-method a[target="_blank"] {
+    display: inline-block;
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-top: 15px;
+    font-weight: normal;
+    transition: background-color 0.3s;
+}
+
+.contact-method a[target="_blank"]:hover {
+    background-color: #b0256e;
+}
+
+/* ==== FORMULARIO DE CONTACTO ==== */
+#contact-form-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+#contact-form-section h2 {
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+#contact-form-section p {
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    background-color: #fef1f7;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--texto-base);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #b0256e;
+}
+
+/* ==== SECCIÓN DE PREGUNTAS FRECUENTES (FAQ) ==== */
+#faq-promo {
+    text-align: center;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    background-color: var(--fondo-rosado);
+    border-radius: 15px;
+}
+
+#faq-promo h2 {
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 10px;
+}
+
+#faq-promo p {
+    margin-bottom: 20px;
+}
+
+.button-secondary {
+    display: inline-block;
+    background-color: white;
+    color: var(--rosa-principal);
+    padding: 12px 25px;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button-secondary:hover {
+    background-color: var(--rosa-principal);
+    color: white;
+}
+
+/* ==== SECCIÓN DE MAPA ==== */
+#map-location {
+    text-align: center;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+#map-location h2 {
+    font-size: 2rem;
+    color: var(--rosa-principal);
+    margin-bottom: 20px;
+}
+
+.map-container {
+    width: 100%;
+    height: 450px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ==== RESPONSIVE (Móvil) ==== */
+@media (max-width: 768px) {
+    #contact-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .contact-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-method {
+        padding: 25px;
+    }
+
+    #contact-form-section {
+        margin: 20px auto;
+    }
+
+    .contact-form {
+        padding: 25px;
+    }
+    
+    #faq-promo {
+        padding: 25px 20px;
+    }
+
+    #map-location h2 {
+        font-size: 1.5rem;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+}

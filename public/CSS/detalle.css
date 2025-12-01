@@ -1,0 +1,320 @@
+/* ======================================================================== */
+/* Variables y Estilos Generales                                            */
+/* ======================================================================== */
+/* Se pueden definir variables de colores y fuentes aquí para facilitar la personalización */
+:root {
+    --rosa-principal: #e91e63;
+    --rosa-claro: #f8e5eb;
+    --gris-oscuro: #333;
+    --gris-medio: #666;
+    --fondo-blanco: #f5f5f5;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--gris-oscuro);
+    background-color: var(--fondo-blanco);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* ======================================================================== */
+/* Estilos de la Sección de Detalles de Producto                          */
+/* ======================================================================== */
+#product-details-section {
+    padding: 60px 20px;
+    max-width: 1200px; /* Ancho máximo para el contenido principal */
+    margin: auto;
+}
+
+.product-details-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las columnas se envuelvan en pantallas pequeñas */
+    gap: 40px; /* Espacio entre la imagen y la información */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra suave */
+}
+
+.product-image-column {
+    flex: 1 1 450px; /* Crece y se encoge, con una base de 450px */
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.product-image-column img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.product-info-column {
+    flex: 1 1 450px;
+    max-width: 50%;
+    padding: 10px;
+    text-align: left;
+}
+
+.product-info-column h1 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    color: var(--rosa-principal);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.product-info-column .product-description {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--gris-oscuro);
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.product-info-column .product-price {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--gris-oscuro);
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* ======================================================================== */
+/* Estilos del Formulario y Controles                                     */
+/* ======================================================================== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--gris-oscuro);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+#talla-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--rosa-claro);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+    background-color: var(--fondo-blanco);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#talla-select:focus {
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.2);
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-btn {
+    background-color: var(--rosa-claro);
+    color: var(--rosa-principal);
+    border: 1px solid var(--rosa-principal);
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.quantity-btn:hover:not(:disabled) {
+    background-color: var(--rosa-principal);
+    color: white;
+}
+
+.quantity-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#product-quantity {
+    width: 60px;
+    padding: 8px 5px;
+    text-align: center;
+    border: 1px solid var(--gris-medio);
+    border-radius: 5px;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    -moz-appearance: textfield; /* Elimina flechas en Firefox */
+}
+
+#product-quantity::-webkit-outer-spin-button,
+#product-quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#stock-message {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--gris-medio);
+    min-height: 20px;
+}
+
+/* ======================================================================== */
+/* Estilos de los Botones de Acción (Button tags)                         */
+/* ======================================================================== */
+.product-actions-buttons {
+    margin-top: 20px;
+    overflow: auto;
+}
+
+.add-to-cart-button,
+.buy-now-button {
+    float: left; /* Hace que los botones se coloquen uno al lado del otro */
+    display: inline-block;
+    padding: 15px 30px;
+    margin-right: 15px;
+    width: auto;
+    max-width: 100%;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.add-to-cart-button {
+    background-color: var(--rosa-principal);
+    color: white;
+}
+
+.add-to-cart-button:hover:not(:disabled) {
+    background-color: #b0256e;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.buy-now-button {
+    background-color: var(--gris-oscuro);
+    color: white;
+}
+
+.buy-now-button:hover:not(:disabled) {
+    background-color: #555555;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-cart-button:disabled,
+.buy-now-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ======================================================================== */
+/* Media Queries para Responsive Design                                   */
+/* ======================================================================== */
+@media (max-width: 992px) {
+    .product-details-container {
+        flex-direction: column; /* Apila las columnas verticalmente */
+        align-items: center;
+        padding: 20px;
+    }
+
+    .product-image-column,
+    .product-info-column {
+        max-width: 100%;
+        flex: none;
+        width: 100%;
+        padding: 0;
+    }
+
+    .product-image-column img {
+        max-height: 400px;
+    }
+
+    .product-info-column {
+        text-align: center;
+    }
+
+    .product-info-column h1 {
+        font-size: 2.2rem;
+    }
+
+    .product-info-column .product-price {
+        font-size: 1.8rem;
+    }
+
+    form {
+        align-items: center;
+    }
+
+    #talla-select {
+        max-width: 300px;
+    }
+
+    .quantity-selector {
+        justify-content: center;
+    }
+
+    .product-actions-buttons {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .add-to-cart-button,
+    .buy-now-button {
+        width: 100%;
+        max-width: 300px;
+        float: none; /* Desactiva el float para que se apilen */
+        display: block; /* Los apila uno sobre otro */
+        font-size: 1.1rem;
+        padding: 12px 25px;
+        margin: 0 auto 15px auto;
+    }
+}
+
+@media (max-width: 576px) {
+    #product-details-section {
+        padding: 30px 15px;
+    }
+
+    .product-details-container {
+        padding: 15px;
+    }
+
+    .product-info-column h1 {
+        font-size: 1.8rem;
+    }
+
+    .product-info-column .product-price {
+        font-size: 1.6rem;
+    }
+}

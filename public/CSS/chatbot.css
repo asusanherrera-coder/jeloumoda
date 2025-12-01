@@ -1,0 +1,298 @@
+/* Importar fuentes y variables si no están ya en style.css */
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Concert+One&display=swap'); */
+/* :root { ... } */
+
+/* Estilos para el botón flotante del chatbot */
+.floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    cursor: pointer;
+    background-color: var(--rosa-principal);
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+}
+
+.floating-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.floating-btn .profile-pic-large {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Estilos para el modal del chatbot */
+.chatbot-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.chatbot-modal.hidden {
+    display: none;
+}
+
+.chatbot-modal.flex {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.chatbot-modal-content {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.chatbot-modal.flex .chatbot-modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.chatbot-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.chatbot-modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+    margin: 0;
+}
+
+.chatbot-modal-header .close-btn {
+    font-size: 2.2em;
+    background: none;
+    border: none;
+    color: var(--gris-medio);
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.chatbot-modal-header .close-btn:hover {
+    color: var(--gris-oscuro);
+    background-color: #f0f0f0;
+}
+
+/* Estilos para la caja de chat */
+#chatbox {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilo para la barra de desplazamiento (webkit) */
+#chatbox::-webkit-scrollbar {
+    width: 8px;
+}
+#chatbox::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+#chatbox::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+#chatbox::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Estilos individuales de los mensajes */
+.chat-message-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.chat-message-wrapper.user {
+    justify-content: flex-end;
+}
+
+.chat-message-wrapper.modist {
+    justify-content: flex-start;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.chat-message {
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.chat-message-wrapper.user .chat-message {
+    background-color: var(--rosa-principal);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.chat-message-wrapper.modist .chat-message {
+    background-color: #f0f2f5;
+    color: var(--gris-oscuro);
+    border-bottom-left-radius: 5px;
+}
+
+.chat-message-wrapper .chat-message .text-red-500 {
+    color: #ef4444; /* Tailwind red-500 */
+}
+
+/* Estilos para el indicador de carga */
+#loadingIndicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: var(--gris-medio);
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: var(--font-body);
+}
+
+/* Estilos para el campo de entrada y botón de enviar */
+.flex.gap-2.mt-4 { /* Contenedor del input y botón */
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#chatinput {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--gris-medio);
+    border-radius: 25px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#chatinput:focus {
+    outline: none;
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
+}
+
+#sendButton {
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#sendButton:hover {
+    background-color: #b0256e;
+    transform: translateY(-2px);
+}
+
+#sendButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Responsive para el modal del chatbot */
+@media (max-width: 600px) {
+    .floating-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+    .floating-btn .profile-pic-large {
+        width: 50px;
+        height: 50px;
+    }
+    .chatbot-modal-content {
+        padding: 15px;
+        max-width: 95%;
+        max-height: 90vh; /* Más alto en móviles pequeños */
+    }
+    .chatbot-modal-header h2 {
+        font-size: 1.5rem;
+    }
+    .chatbot-modal-header .close-btn {
+        font-size: 1.8em;
+    }
+    #chatbox {
+        padding: 10px;
+    }
+    .chat-message {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    .profile-pic {
+        width: 35px;
+        height: 35px;
+    }
+    #chatinput {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    #sendButton {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}

@@ -1,0 +1,267 @@
+/* Importar fuentes de Google Fonts */
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Concert+One&display=swap'); */
+
+/* Variables CSS - Asegúrate de que estas variables estén definidas globalmente o en un archivo base */
+/* :root { ... } */
+
+/* ==== PIE DE PÁGINA (Footer) - Estilo Minimalista ==== */
+footer {
+    background-color: var(--rosa-suave);
+    padding: 60px 20px;
+    font-family: var(--font-body);
+    font-size: 0.9rem; /* Tamaño de fuente base del footer más pequeño */
+    color: var(--gris-medio); /* Color de texto base más claro */
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px; /* Espacio entre columnas */
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.footer-brand-info {
+    flex: 1 1 250px; /* Base de tamaño para la columna de la marca */
+    text-align: left;
+}
+
+.footer-brand-info .footer-logo {
+    height: 80px;
+    width: auto;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+.footer-brand-info .brand-slogan {
+    font-style: italic;
+    font-size: 1rem; /* Slogan un poco más pequeño */
+    color: var(--gris-medio);
+}
+
+.social-media {
+    margin-top: 20px;
+}
+
+.social-media h4 {
+    font-family: var(--font-heading); /* Aplica la fuente de títulos */
+    font-size: 1.1rem; /* Tamaño de título de redes sociales */
+    color: var(--rosa-principal);
+    margin-bottom: 15px;
+}
+
+.social-media ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.social-media a i {
+    font-size: 28px;
+    color: var(--gris-medio);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-media a:hover i {
+    color: var(--rosa-principal);
+    transform: scale(1.1); /* Efecto de escala más sutil */
+}
+
+.footer-nav {
+    flex: 2 1 500px; /* Permite que el bloque de navegación ocupe más espacio y se divida */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Espacio entre las sub-columnas de navegación */
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1 1 180px; /* Base de tamaño para cada columna individual */
+    text-align: left;
+}
+
+.footer-column h4 {
+    font-family: var(--font-heading); /* Aplica la fuente de títulos */
+    font-size: 1.3rem; /* Tamaño de título de columna de navegación */
+    color: var(--rosa-principal);
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    font-family: var(--font-body); /* Aplica la fuente del cuerpo */
+    color: var(--gris-medio);
+    font-size: 0.9rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--rosa-principal);
+    transform: translateX(5px);
+}
+
+.footer-column a i {
+    margin-right: 10px;
+}
+
+.footer-newsletter {
+    flex: 1 1 300px; /* Base de tamaño para la columna del newsletter */
+}
+
+.footer-newsletter h4 {
+    font-family: var(--font-heading); /* Aplica la fuente de títulos */
+    font-size: 1.3rem; /* Tamaño de título del newsletter */
+    color: var(--rosa-principal);
+    margin-bottom: 20px;
+}
+
+.footer-newsletter p {
+    font-family: var(--font-body); /* Aplica la fuente del cuerpo */
+    margin-bottom: 20px;
+    color: var(--gris-medio);
+    font-size: 0.9rem;
+}
+
+.footer-newsletter form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-newsletter input[type="email"] {
+    font-family: var(--font-body); /* Aplica la fuente del cuerpo */
+    padding: 12px 20px;
+    border: 1px solid var(--rosa-claro);
+    border-radius: 30px;
+    font-size: 1rem;
+    background-color: var(--fondo-blanco);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.footer-newsletter input[type="email"]:focus {
+    outline: none;
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.2);
+}
+
+.footer-newsletter button {
+    font-family: var(--font-body); /* Aplica la fuente del cuerpo */
+    background-color: var(--rosa-principal);
+    color: var(--fondo-blanco);
+    padding: 14px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.footer-newsletter button:hover {
+    background-color: var(--gris-oscuro);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.privacy-note a {
+    font-family: var(--font-body); /* Aplica la fuente del cuerpo */
+    text-decoration: underline;
+    transition: color 0.3s ease;
+    color: var(--gris-medio);
+    font-size: 0.85rem;
+}
+
+.privacy-note a:hover {
+    color: var(--rosa-principal);
+}
+
+/* Sección inferior del footer */
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding-top: 25px;
+    color: var(--gris-medio);
+    font-size: 0.85rem;
+    max-width: 1400px;
+    margin: auto;
+    gap: 15px;
+}
+
+.payment-methods {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.payment-methods h4 {
+    font-family: var(--font-body); /* Aplica la fuente del cuerpo */
+    font-size: 1rem; /* Título de métodos de pago */
+    font-weight: 600;
+    margin: 0;
+    color: var(--gris-medio);
+}
+
+/* Responsive para móvil */
+@media (max-width: 992px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column,
+    .footer-brand-info,
+    .footer-newsletter {
+        width: 100%;
+        text-align: center;
+    }
+
+    .social-media ul {
+        justify-content: center;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-column h4 {
+        margin-top: 30px;
+        font-size: 1.5rem; /* Ajuste para móviles */
+    }
+
+    .footer-bottom {
+        flex-direction: column-reverse;
+    }
+
+    .payment-methods {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-column h4 {
+        font-size: 1.3rem; /* Ajuste más pequeño para móviles */
+    }
+
+    .footer-brand-info .footer-logo {
+        height: 60px;
+    }
+}
