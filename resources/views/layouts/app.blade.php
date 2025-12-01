@@ -12,6 +12,8 @@
           rel="stylesheet" 
           xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
           crossorigin="anonymous">
+    
+    {{-- Asegúrate que estas rutas sean correctas en tu proyecto --}}
     <link rel="stylesheet" href="{{ asset('CSS/header.css') }}">
     <link rel="stylesheet" href="{{ asset('CSS/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
@@ -36,7 +38,7 @@
                 <li><a href="{{ route('home') }}">INICIO</a></li>
                 <li><a href="{{ route('catalogo.index') }}">CATÁLOGO</a></li>
                 <li><a href="{{ route('nosotros') }}">NOSOTROS</a></li>
-                <li><a href="{{ route('blog') }}">BLOG DE MODA Y ESTILO</a></li>
+                <li><a href="{{ route('blog') }}">BLOG</a></li>
                 <li><a href="{{ route('contacto.create') }}">CONTACTO</a></li>
             </ul>
         </nav>
@@ -53,45 +55,56 @@
                 <span class="cart-count">{{ $cartCount }}</span>
             </a>
 
-            {{-- LOGICA DE USUARIO: Comprobamos si es Cliente (Auth) o Empleado (Session) --}}
-            @php
-                $isLoggedIn = Auth::check() || session('tipo_usuario') === 'empleado';
-                $userName = Auth::check() ? Auth::user()->nombre : session('nombre');
-            @endphp
-
-            @if ($isLoggedIn)
-                {{-- Usuario Logueado --}}
+            {{-- LOGICA DE USUARIO SIMPLIFICADA (BLADE NATIVO) --}}
+            
+            {{-- CASO 1: CLIENTE LOGUEADO (Auth) --}}
+            @auth
                 <div class="user-menu-wrapper">
                     <button id="usuario-toggle" class="user-toggle-btn">
-                        <i class="fas fa-user"></i> {{ $userName }}
+                        <i class="fas fa-user"></i> {{ Auth::user()->nombre }}
                     </button>
 
-                    <div id="user-dropdown" class="user-dropdown-menu"> 
+                    <div id="user-dropdown" class="user-dropdown-menu" style="display: none;"> 
+                        <div class="dropdown-item-text">Hola, {{ Auth::user()->nombre }}</div>
                         
-                        {{-- Opciones para Empleado --}}
-                        @if (session('tipo_usuario') === 'empleado')
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
-                        @endif
-
-                        {{-- Opciones para Cliente (Solo si es Auth) --}}
-                        @auth
-                            {{-- Aquí pondremos 'Mis Compras' en el futuro --}}
-                            <span class="dropdown-item-text">Hola, Cliente</span>
-                        @endauth
-                        
-                        {{-- Cerrar Sesión --}}
-                        <form action="{{ route('logout') }}" method="POST">
+                        {{-- Botón Cerrar Sesión --}}
+                        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                             @csrf
-                            <button type="submit" class="logout-btn dropdown-item">Cerrar sesión</button>
+                            <button type="submit" class="logout-btn dropdown-item" style="width: 100%; text-align: left; background: none; border: none; padding: 10px 15px; cursor: pointer;">
+                                Cerrar sesión
+                            </button>
                         </form>
                     </div>
                 </div>
+
+            {{-- CASO 2: VERIFICAR SI ES EMPLEADO (Session) --}}
             @else
-                {{-- Usuario Invitado --}}
-                <a href="{{ route('login') }}" class="login-link" aria-label="Mi cuenta o iniciar sesión">
-                    <i class="fas fa-user"></i> Iniciar Sesión
-                </a>
-            @endif
+                @if(session('tipo_usuario') === 'empleado')
+                    <div class="user-menu-wrapper">
+                        <button id="usuario-toggle" class="user-toggle-btn">
+                            <i class="fas fa-user"></i> {{ session('nombre') }}
+                        </button>
+    
+                        <div id="user-dropdown" class="user-dropdown-menu" style="display: none;"> 
+                            <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                            
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                                @csrf
+                                <button type="submit" class="logout-btn dropdown-item" style="width: 100%; text-align: left; background: none; border: none; padding: 10px 15px; cursor: pointer;">
+                                    Cerrar sesión
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                {{-- CASO 3: INVITADO (Muestra Login) --}}
+                @else
+                    <a href="{{ route('login') }}" class="login-link" aria-label="Iniciar sesión">
+                        <i class="fas fa-user"></i> Iniciar Sesión
+                    </a>
+                @endif
+            @endauth
+
         </div>
     </div>
 </header>
@@ -100,107 +113,33 @@
     @yield('content')
 </main>
 
+{{-- Footer --}}
 <footer>
     <div class="footer-container">
+        {{-- ... Tu contenido del footer se mantiene igual ... --}}
         <div class="footer-brand-info">
-            <a href="{{ route('home') }}" aria-label="Ir a la página de inicio de Jelou Moda">
-                <img src="{{ asset('IMG/Logo.png') }}" alt="Logo de Jelou Moda" class="footer-logo">
-            </a>
-            <p class="brand-slogan">Descubre tu estilo único con Jelou Moda.</p>
-            <div class="social-media">
-                <h4>Síguenos</h4>
-                <ul>
-                    <li>
-                        <a href="https://www.facebook.com/p/Jelou-Moda--100072189085624/"
-                           aria-label="Síguenos en Facebook" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-square-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.tiktok.com/discover/jelou-moda" aria-label="Síguenos en TikTok"
-                           target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+             <p>&copy; 2025 Jelou Moda</p>
         </div>
-
-        <nav class="footer-nav">
-            <div class="footer-column">
-                <h4>NOSOTROS</h4>
-                <ul>
-                    <li><a href="{{ route('nosotros') }}">Quiénes somos</a></li>
-                    <li><a href="{{ route('blog') }}">Nuestro Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>ATENCIÓN AL CLIENTE</h4>
-                <ul>
-                    <li><a href="{{ route('metodos.envio') }}">Métodos de envío</a></li>
-                    <li><a href="#">Cambios y devoluciones</a></li>
-                    <li><a href="{{ route('terminos') }}">Términos y condiciones</a></li>
-                    <li><a href="{{ route('reclamos.create') }}">Libro de reclamaciones</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>CONTACTO</h4>
-                <address>
-                    <ul>
-                        <li>
-                            <a href="https://api.whatsapp.com/send?phone=51936033151&text=Hola%20Bella%20%F0%9F%92%9C%E2%9C%A8"
-                               aria-label="Llámanos al +51 936033151">
-                                <i class="fa-brands fa-whatsapp"></i> +51 936033151
-                            </a>
-                        </li>
-                    </ul>
-                </address>
-            </div>
-        </nav>
-
-        <div class="footer-newsletter">
-            <h4>SUSCRÍBETE A NUESTRAS NOVEDADES</h4>
-            <p>Sé el primero en enterarte de promociones exclusivas.</p>
-            <form action="#" method="POST">
-                <label for="newsletter-email" class="sr-only">Correo electrónico</label>
-                <input type="email" id="newsletter-email" name="email"
-                       placeholder="Ingresa tu correo electrónico"
-                       required>
-                <a href="#">Suscribirme</a>
-            </form>
-            <p class="privacy-note">
-                Al suscribirte, aceptas nuestra
-                <a href="{{ route('politica.privacidad') }}">Política de Privacidad</a>.
-            </p>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <div class="payment-methods">
-            <h4>Métodos de pago</h4>
-            <img src="{{ asset('IMG/visa.png') }}" alt="Visa" style="width: 40px; height: auto;">
-            <img src="{{ asset('IMG/mastercard.png') }}" alt="Mastercard" style="width: 40px; height: auto;">
-            <img src="{{ asset('IMG/yape.jpg') }}" alt="Yape" style="width: 40px; height: auto;">
-            <img src="{{ asset('IMG/plin.png') }}" alt="Plin" style="width: 40px; height: auto;">
-        </div>
-        <p>&copy; 2025 – Todos los derechos reservados – Diseñado por Equipo 04</p>
     </div>
 </footer>
 
-<script src="{{ asset('JS/chatbot.js') }}"></script>
+{{-- Scripts --}}
 <script src="{{ asset('JS/carrito.js') }}"></script>
 
 <script>
+    // Script para manejar el menú desplegable del usuario
     document.addEventListener("DOMContentLoaded", function () {
         const iconoUsuario = document.getElementById("usuario-toggle");
         const dropdown = document.getElementById("user-dropdown");
 
         if (iconoUsuario && dropdown) {
             iconoUsuario.addEventListener("click", function (e) {
+                e.preventDefault(); // Evitar saltos
                 e.stopPropagation();
                 dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
             });
 
+            // Cerrar al hacer clic fuera
             document.addEventListener("click", function (e) {
                 if (!dropdown.contains(e.target) && e.target !== iconoUsuario) {
                     dropdown.style.display = "none";

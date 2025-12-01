@@ -104,6 +104,12 @@
         <p class="dashboard-subtitle">
             Hola <strong>{{ session('nombre') }}</strong>, bienvenido(a) al panel de Jelou Moda.
         </p>
+        <div class="alert alert-info">
+            DEBUG: <br>
+            Tu ID: {{ session('id_usuario') }} <br>
+            Tu Cargo Detectado: "{{ session('cargo') }}" <br>
+            Tu Tipo: {{ session('tipo_usuario') }}
+        </div>
 
         <div class="dashboard-grid">
             <div class="dashboard-card">

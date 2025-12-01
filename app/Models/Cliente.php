@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// Importante: Cambiar de Model a Authenticatable
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -11,7 +10,12 @@ class Cliente extends Authenticatable
     use Notifiable;
 
     protected $table = 'clientes';
-    protected $primaryKey = 'id_cliente'; // Asegúrate que este sea tu ID
+    protected $primaryKey = 'id_cliente';
+
+    // --- CORRECCIÓN CRÍTICA ---
+    // Esto soluciona el error "Unknown column updated_at".
+    // Le decimos a Laravel que NO intente llenar created_at ni updated_at automáticamente.
+    public $timestamps = false; 
 
     protected $fillable = [
         'nombre',
@@ -23,13 +27,10 @@ class Cliente extends Authenticatable
         'estado',
     ];
 
-    // Ocultar la clave para que no aparezca en respuestas JSON
     protected $hidden = [
         'clave',
     ];
 
-    // ESTO ES CRUCIAL:
-    // Le decimos a Laravel que la contraseña está en la columna 'clave'
     public function getAuthPassword()
     {
         return $this->clave;
