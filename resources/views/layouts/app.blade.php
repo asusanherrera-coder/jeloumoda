@@ -10,14 +10,13 @@
     {{-- CSS globales --}}
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
           rel="stylesheet" 
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+          xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
           crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('CSS/header.css') }}">
     <link rel="stylesheet" href="{{ asset('CSS/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
     <link rel="stylesheet" href="{{ asset('CSS/chatbot.css') }}">
 
-    {{-- CSS específicos de cada vista --}}
     @stack('styles')
    
 </head>
@@ -54,22 +53,33 @@
                 <span class="cart-count">{{ $cartCount }}</span>
             </a>
 
-            @if (session('nombre'))
+            {{-- LOGICA DE USUARIO: Comprobamos si es Cliente (Auth) o Empleado (Session) --}}
+            @php
+                $isLoggedIn = Auth::check() || session('tipo_usuario') === 'empleado';
+                $userName = Auth::check() ? Auth::user()->nombre : session('nombre');
+            @endphp
+
+            @if ($isLoggedIn)
                 {{-- Usuario Logueado --}}
                 <div class="user-menu-wrapper">
                     <button id="usuario-toggle" class="user-toggle-btn">
-                        <i class="fas fa-user"></i> {{ session('nombre') }}
+                        <i class="fas fa-user"></i> {{ $userName }}
                     </button>
 
                     <div id="user-dropdown" class="user-dropdown-menu"> 
+                        
+                        {{-- Opciones para Empleado --}}
                         @if (session('tipo_usuario') === 'empleado')
-                            {{-- Dejamos solo el Dashboard si es empleado --}}
                             <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
                         @endif
 
-                        {{-- Hemos ELIMINADO la ruta perfil.index --}}
+                        {{-- Opciones para Cliente (Solo si es Auth) --}}
+                        @auth
+                            {{-- Aquí pondremos 'Mis Compras' en el futuro --}}
+                            <span class="dropdown-item-text">Hola, Cliente</span>
+                        @endauth
                         
-                        {{-- Cerrar Sesión (Formulario POST) --}}
+                        {{-- Cerrar Sesión --}}
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="logout-btn dropdown-item">Cerrar sesión</button>
@@ -150,12 +160,12 @@
 
         <div class="footer-newsletter">
             <h4>SUSCRÍBETE A NUESTRAS NOVEDADES</h4>
-            <p>Sé el primero en enterarte de promociones exclusivas, nuevos lanzamientos y eventos especiales.</p>
+            <p>Sé el primero en enterarte de promociones exclusivas.</p>
             <form action="#" method="POST">
                 <label for="newsletter-email" class="sr-only">Correo electrónico</label>
                 <input type="email" id="newsletter-email" name="email"
                        placeholder="Ingresa tu correo electrónico"
-                       required aria-label="Campo para ingresar correo electrónico para suscripción">
+                       required>
                 <a href="#">Suscribirme</a>
             </form>
             <p class="privacy-note">
@@ -173,7 +183,7 @@
             <img src="{{ asset('IMG/yape.jpg') }}" alt="Yape" style="width: 40px; height: auto;">
             <img src="{{ asset('IMG/plin.png') }}" alt="Plin" style="width: 40px; height: auto;">
         </div>
-        <p>&copy; 2025 – Todos los derechos reservados – Diseñado por Equipo 04 - Xiomara B - Aracely H - Susan H</p>
+        <p>&copy; 2025 – Todos los derechos reservados – Diseñado por Equipo 04</p>
     </div>
 </footer>
 
