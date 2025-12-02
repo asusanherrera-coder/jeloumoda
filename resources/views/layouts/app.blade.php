@@ -65,7 +65,9 @@
                     </button>
 
                     <div id="user-dropdown" class="user-dropdown-menu" style="display: none;"> 
-                        <div class="dropdown-item-text">Hola, {{ Auth::user()->nombre }}</div>
+                        <div class="dropdown-item-text"><a href="{{ route('perfil.index') }}" class="dropdown-item">
+                            <i class="fa-solid fa-user-circle"></i> Mi Perfil</a>
+                        </div>
                         
                         {{-- Botón Cerrar Sesión --}}
                         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">

@@ -19,7 +19,7 @@ class AdminMiddleware
         if (!in_array($cargo, $cargosPermitidos)) {
             
             // Debug opcional: Si te sigue rebotando, descomenta la siguiente línea para ver qué detecta:
-            // dd("Tu cargo detectado es: " . $cargoSession);
+            dd("Tu cargo detectado es: " . $cargoSession);
 
             return redirect()->route('dashboard')
                 ->with('error', 'Acceso denegado. Se requieren permisos de Administrador.');

@@ -6,107 +6,64 @@ use App\Models\Catalogo;
 use App\Models\Compra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth; // Importante para Auth::id()
 
 class CarritoController extends Controller
 {
-    public function index()
-{
-    // 🛑 ¡ELIMINA ESTA LÍNEA!
-    // session()->forget('cart'); 
-
-    $cart = session()->get('cart', []);
+    // ... (Tus funciones index, add, updateQuantity, remove, clear se mantienen IGUALES) ...
     
-    // Asegúrate de que el cálculo del total esté correcto
-    $total = collect($cart)->sum(function ($item) {
-        // Esta línea ahora funcionará correctamente porque el método add
-        // ya asegura que el array $item tenga la clave 'precio'
-        return $item['precio'] * $item['cantidad']; 
-    });
+    public function index() {
+        $cart = session()->get('cart', []);
+        $total = collect($cart)->sum(function ($item) { return $item['precio'] * $item['cantidad']; });
+        return view('carrito.index', compact('cart', 'total'));
+    }
 
-    return view('carrito.index', compact('cart', 'total'));
-}
-
-    public function add(Request $request)
-    {
-        // 1. Validación (ya tienes esto)
+    public function add(Request $request) {
+        // ... (Tu código existente) ...
         $request->validate([
             'id_producto_variacion' => 'required|integer',
             'cantidad' => 'required|integer|min:1',
             'accion' => 'required|string|in:carrito,comprar'
         ]);
-
-        $id = $request->input('id_producto_variacion'); // ID de la variación/talla
+        $id = $request->input('id_producto_variacion');
         $cantidad = $request->input('cantidad');
         $accion = $request->input('accion');
-        
         $cart = session()->get('cart', []);
-
         if(isset($cart[$id])) {
-            // Producto ya existe, solo actualiza la cantidad
             $cart[$id]['cantidad'] += $cantidad;
-
         } else {
-            // Producto NUEVO
-            
-            // 🛑 PASO CLAVE: OBTENER LOS DATOS DEL MODELO Catalogo
-            // Asumiendo que el ID de la variación tiene los datos del precio e imagen
-            $producto = Catalogo::find($id); 
-
-            if (!$producto) {
-                return redirect()->back()->with('error', 'El producto seleccionado no existe.');
-            }
-
-            // Crear el array del ítem completo para la sesión
+            $producto = Catalogo::find($id);
+            if (!$producto) return redirect()->back()->with('error', 'Producto no existe.');
             $cart[$id] = [
-                "id" => $id, 
-                "nombre" => $producto->nombre,
-                "precio" => $producto->precio, // <-- ¡ASEGURAMOS ESTA CLAVE!
-                "imagen" => $producto->imagen, // <-- ¡Y ESTA!
+                "id" => $id, "nombre" => $producto->nombre,
+                "precio" => $producto->precio, "imagen" => $producto->imagen,
                 "cantidad" => $cantidad
-                // Puedes añadir la talla u otros detalles aquí
             ];
         }
-
         session()->put('cart', $cart);
-
-        // ... Lógica de Redirección (comprar o carrito) ...
-        if ($accion === 'comprar') {
-            return redirect()->route('checkout.index'); 
-        }
-
-       return redirect()->back()->with('success', 'Producto añadido al carrito!');
+        if ($accion === 'comprar') return redirect()->route('checkout.index');
+        return redirect()->back()->with('success', 'Producto añadido!');
     }
 
-    public function updateQuantity(Request $request, Catalogo $producto)
-    {
+    public function updateQuantity(Request $request, Catalogo $producto) {
         $cart = session()->get('cart', []);
-
-        if (!isset($cart[$producto->id_producto])) {
-            return back();
-        }
-
+        if (!isset($cart[$producto->id_producto])) return back();
         $cantidad = max(1, (int) $request->input('cantidad', 1));
         $cart[$producto->id_producto]['cantidad'] = $cantidad;
-
         session()->put('cart', $cart);
-
-        return back()->with('success', 'Cantidad actualizada.');
+        return back()->with('success', 'Actualizado.');
     }
 
-    public function remove(Catalogo $producto)
-    {
+    public function remove(Catalogo $producto) {
         $cart = session()->get('cart', []);
-
         if (isset($cart[$producto->id_producto])) {
             unset($cart[$producto->id_producto]);
             session()->put('cart', $cart);
         }
-
-        return back()->with('success', 'Producto eliminado del carrito.');
+        return back()->with('success', 'Eliminado.');
     }
 
-    public function clear()
-    {
+    public function clear() {
         session()->forget('cart');
         return back()->with('success', 'Carrito vaciado.');
     }
@@ -114,12 +71,9 @@ class CarritoController extends Controller
     public function checkout()
     {
         $cart = session()->get('cart', []);
-
         if (empty($cart)) {
-            return redirect()->route('carrito.index')
-                ->with('error', 'Tu carrito está vacío.');
+            return redirect()->route('carrito.index')->with('error', 'Tu carrito está vacío.');
         }
-
         $total = collect($cart)->sum(function ($item) {
             return $item['precio'] * $item['cantidad'];
         });
@@ -127,53 +81,59 @@ class CarritoController extends Controller
         return view('checkout.index', compact('cart', 'total'));
     }
 
+    // --- FUNCIÓN ACTUALIZADA Y CORREGIDA ---
     public function procesarCompra(Request $request)
-{
-    $cart = session()->get('cart', []);
+    {
+        $cart = session()->get('cart', []);
 
-    if (empty($cart)) {
-        return redirect()->route('carrito.index')
-            ->with('error', 'Tu carrito está vacío.');
+        if (empty($cart)) {
+            return redirect()->route('carrito.index')->with('error', 'Tu carrito está vacío.');
+        }
+
+        // 1. Validación: Solo Yape/Plin y la IMAGEN OBLIGATORIA
+        $request->validate([
+            'metodo_pago' => 'required|in:plin,yape',
+            'comprobante' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
+        ]);
+
+        $total = collect($cart)->sum(function ($item) {
+            return $item['precio'] * $item['cantidad'];
+        });
+
+        // 2. Guardar la imagen en la carpeta pública
+        $nombreArchivo = null;
+        if ($request->hasFile('comprobante')) {
+            $imagen = $request->file('comprobante');
+            // Nombre único: tiempo + nombre original
+            $nombreArchivo = time() . '_' . $imagen->getClientOriginalName();
+            
+            $imagen->move(public_path('IMG/comprobantes'), $nombreArchivo);
+        }
+
+        // 3. Crear Compra en la BD (Sin campos de tarjeta)
+        $compra = Compra::create([
+            'transaction_id'     => 'TRANS-' . Str::random(12),
+            'metodo_pago'        => $request->metodo_pago,
+            'monto_total'        => $total,
+            'estado_pago'        => 'pendiente', // Nace pendiente hasta que revises la foto
+            'datos_carrito'      => json_encode($cart),
+            'fecha_compra'       => now(),
+            
+            // Usamos 'id_usuario' como aparece en tu imagen #11
+            'id_usuario'         => Auth::check() ? Auth::user()->id_cliente : session('id_usuario'),
+            
+            // Campo NUEVO que debes agregar a la BD
+            'imagen_comprobante' => $nombreArchivo, 
+        ]);
+
+        // Vaciar carrito
+        session()->forget('cart');
+
+        // Redirigir al recibo
+        // CORRECCIÓN AQUI:
+        // 1. Cambiamos 'perfil.recibo' por 'perfil.detalle' (que es como se llama en web.php)
+        // 2. Cambiamos transaction_id por id_compra (porque tu PerfilController busca por ID numérico)
+        return redirect()->route('perfil.detalle', $compra->id_compra) 
+            ->with('status', '¡Compra registrada! Estamos verificando tu pago.');
     }
-
-    $request->validate([
-        'metodo_pago' => 'required|in:plin,yape,tarjeta',
-        'numero_tarjeta' => 'nullable|string|max:16',
-        'nombre_tarjeta' => 'nullable|string|max:255',
-        'fecha_vencimiento' => 'nullable|string|max:10',
-    ]);
-
-    $total = collect($cart)->sum(function ($item) {
-        return $item['precio'] * $item['cantidad'];
-    });
-
-    $metodoPago = $request->metodo_pago;
-
-    $compra = Compra::create([
-        'transaction_id'            => 'TRANS-' . Str::random(12),
-        'metodo_pago'               => $metodoPago,
-        'monto_total'               => $total,
-        'estado_pago'               => 'completado',
-        'datos_carrito'             => json_encode($cart),
-        'fecha_compra'              => now(),
-        'numero_tarjeta_ultimos_4'  => $metodoPago === 'tarjeta'
-                                        ? substr($request->numero_tarjeta, -4)
-                                        : null,
-        'nombre_tarjeta'            => $metodoPago === 'tarjeta'
-                                        ? $request->nombre_tarjeta
-                                        : null,
-        'fecha_vencimiento'         => $metodoPago === 'tarjeta'
-                                        ? $request->fecha_vencimiento
-                                        : null,
-        
-        // ✔ CORRECCIÓN
-        'id_usuario'                => session('id_usuario'),
-    ]);
-
-    session()->forget('cart');
-
-    return redirect()->route('home')
-        ->with('status', 'Compra realizada con éxito. Código: ' . $compra->transaction_id);
-}
-
 }
