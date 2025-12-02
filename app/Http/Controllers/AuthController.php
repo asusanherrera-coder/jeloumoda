@@ -7,6 +7,8 @@ use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail; // Importante
+use App\Mail\WelcomeMail;            // Importante
 
 class AuthController extends Controller
 {
@@ -36,17 +38,15 @@ class AuthController extends Controller
                 ->with('status', 'Bienvenido(a) ' . $cliente->nombre);
         }
 
-        // 2. LOGIN EMPLEADO (DNI)
+        // 2. LOGIN EMPLEADO
         $empleado = Empleado::where('correo', $request->usuario)->first();
 
         if ($empleado && $request->contrasena == $empleado->dni) {
-            
-            // GUARDAMOS LA SESIÓN CON EL CARGO (Crucial)
             session([
                 'id_usuario'   => $empleado->id_empleado,
                 'nombre'       => $empleado->nombres,
                 'tipo_usuario' => 'empleado',
-                'cargo'        => $empleado->cargo, // Aquí usamos tu columna 'cargo'
+                'cargo'        => $empleado->cargo,
             ]);
 
             return redirect()->route('dashboard')
@@ -75,6 +75,7 @@ class AuthController extends Controller
         return view('home.registro');
     }
 
+    // --- FUNCIÓN DE REGISTRO MODIFICADA ---
     public function register(Request $request)
     {
         $request->validate([
@@ -94,10 +95,19 @@ class AuthController extends Controller
             'estado'         => 'activo',
         ]);
 
+        // --- ENVIAR CORREO DE BIENVENIDA ---
+        try {
+            Mail::to($cliente->correo)->send(new WelcomeMail($cliente));
+        } catch (\Exception $e) {
+            // Si falla el correo (ej. mala config .env), no detenemos el registro
+            // Solo lo registramos en el log para no asustar al usuario
+            \Log::error('Error enviando correo de bienvenida: ' . $e->getMessage());
+        }
+
         Auth::login($cliente);
 
         return redirect()->route('home')
-            ->with('success', 'Registro completado. ¡Bienvenida a Jelou Moda!');
+            ->with('success', 'Registro completado. ¡Bienvenida a Jelou Moda! Te hemos enviado un correo.');
     }
 
     public function showResetForm()

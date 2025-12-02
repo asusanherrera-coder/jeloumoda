@@ -1,0 +1,233 @@
+{
+  "tienda": {
+    "nombre": "Jelou Moda",
+    "ubicacion": "Lima, Perú",
+    "contacto": {
+      "whatsapp": "+51 936 033 151",
+      "email": "contacto@jeloumoda.com"
+    },
+    "horario": "Atención online 24/7. Envíos de Lunes a Sábado."
+  },
+  "politicas": {
+    "pagos": "Aceptamos Yape y Plin. Es necesario subir la captura del pago al finalizar la compra.",
+    "envios": "Envíos a todo el Perú. Lima: 24-48 horas. Provincia: Según agencia (Olva/Shalom)."
+  },
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Baggy Jeans Celeste con bolsillo",
+      "precio": "S/ 50.00",
+      "categoria": "Pantalones",
+      "descripcion": "Jean holgado color celeste con bolsillos utilitarios.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 4,
+      "nombre": "Baggy Jeans con Bolsillo color Clásico",
+      "precio": "S/ 50.00",
+      "categoria": "Pantalones",
+      "descripcion": "Jean baggy clásico con bolsillos laterales.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 7,
+      "nombre": "Baggy Jeans con Bolsillo color Negro",
+      "precio": "S/ 50.00",
+      "categoria": "Pantalones",
+      "descripcion": "Pantalón baggy negro con bolsillos cargo.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 10,
+      "nombre": "Baggy Jeans Rasgado Azul",
+      "precio": "S/ 55.00",
+      "categoria": "Pantalones",
+      "descripcion": "Jean azul con rasgados estilizados.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 13,
+      "nombre": "Baggy Jeans Rasgado Celeste",
+      "precio": "S/ 55.00",
+      "categoria": "Pantalones",
+      "descripcion": "Jean celeste claro con detalles rasgados.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 16,
+      "nombre": "Baggy Jeans Rasgado Negro",
+      "precio": "S/ 55.00",
+      "categoria": "Pantalones",
+      "descripcion": "Jean negro urbano con rasgados.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 19,
+      "nombre": "Baggy Jeans sin Bolsillo Azul",
+      "precio": "S/ 45.00",
+      "categoria": "Pantalones",
+      "descripcion": "Jean azul corte limpio sin bolsillos laterales.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 22,
+      "nombre": "Baggy Jeans sin Bolsillo Beige",
+      "precio": "S/ 45.00",
+      "categoria": "Pantalones",
+      "descripcion": "Pantalón baggy color beige, versátil.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 37,
+      "nombre": "Crop Top Básico",
+      "precio": "S/ 20.00",
+      "categoria": "Polos",
+      "descripcion": "Crop top de manga corta. Colores: Blanco, Coral, Lila, Negro.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 49,
+      "nombre": "Crop Top Bicolor",
+      "precio": "S/ 25.00",
+      "categoria": "Polos",
+      "descripcion": "Crop top combinado (Negro/Blanco, Rosa/Blanco).",
+      "stock": "Disponible"
+    },
+    {
+      "id": 55,
+      "nombre": "Polo Manga Larga con Detalle",
+      "precio": "S/ 25.00",
+      "categoria": "Polos",
+      "descripcion": "Polo manga larga en colores Beige, Rojo, Blanco o Negro con encaje.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 67,
+      "nombre": "Polo Manga Larga con Cuello",
+      "precio": "S/ 25.00",
+      "categoria": "Polos",
+      "descripcion": "Estilo formal casual. Colores: Beige, Blanco, Guinda, Negro.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 79,
+      "nombre": "Polo Manga Larga Simple",
+      "precio": "S/ 20.00",
+      "categoria": "Polos",
+      "descripcion": "Básico de manga larga. Colores: Blanco, Gris, Negro, Palo Rosa.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 91,
+      "nombre": "Bibidi Básico",
+      "precio": "S/ 18.00",
+      "categoria": "Polos",
+      "descripcion": "Bibidi fresco. Colores: Celeste, Guinda, Lila, Negro, Rosado.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 109,
+      "nombre": "Bibidi Simple",
+      "precio": "S/ 15.00",
+      "categoria": "Polos",
+      "descripcion": "Bibidi sencillo. Colores: Blanco, Marrón, Negro.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 118,
+      "nombre": "Tank Crop Top",
+      "precio": "S/ 16.00",
+      "categoria": "Polos",
+      "descripcion": "Top sin mangas estilo Tank. Variedad de colores: Azul, Beige, Naranja, Negro, Rojo, Rosa, Verde.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 154,
+      "nombre": "Zapatillas Adidas (Réplica)",
+      "precio": "S/ 40.00 - S/ 60.00",
+      "categoria": "Calzado",
+      "descripcion": "Modelos disponibles en Blanco y Negro.",
+      "stock": "Consultar tallas"
+    },
+    {
+      "id": 160,
+      "nombre": "Zapatillas Adidas Samba",
+      "precio": "S/ 36.00",
+      "categoria": "Calzado",
+      "descripcion": "Clásicas Samba. Colores: Blancas, Negras, Líneas Rosas.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 169,
+      "nombre": "Zapatillas Nike Air Force 1",
+      "precio": "S/ 40.00",
+      "categoria": "Calzado",
+      "descripcion": "Air Force 1 clásicas. Blancas o Negras.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 178,
+      "nombre": "Gorra Brooklyn",
+      "precio": "S/ 20.00",
+      "categoria": "Accesorios",
+      "descripcion": "Gorra urbana bordada 'Brooklyn'. Colores: Azul, Gris, Marrón, Plomo, Verde.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 183,
+      "nombre": "Gorra Los Angeles",
+      "precio": "S/ 20.00",
+      "categoria": "Accesorios",
+      "descripcion": "Gorra LA. Colores: Beige, Guinda, Plomo, Verde.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 188,
+      "nombre": "Gorra New York",
+      "precio": "S/ 20.00",
+      "categoria": "Accesorios",
+      "descripcion": "Gorra NY Yankees. Colores: Azul, Marrón, Plomo, Rosa, Verde.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 193,
+      "nombre": "Bufanda de Lana",
+      "precio": "S/ 18.00",
+      "categoria": "Accesorios",
+      "descripcion": "Bufanda abrigadora. Colores: Azul, Beige, Naranja, Negro, Rojo.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 198,
+      "nombre": "Bolso con Bolsillos",
+      "precio": "S/ 25.00",
+      "categoria": "Accesorios",
+      "descripcion": "Bolso práctico con compartimentos. Beige o Negro.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 200,
+      "nombre": "Bolso Sencillo",
+      "precio": "S/ 20.00",
+      "categoria": "Accesorios",
+      "descripcion": "Bolso tote bag simple. Beige, Negro, Rojo.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 203,
+      "nombre": "Pijama con Encaje",
+      "precio": "S/ 28.00",
+      "categoria": "Pijamas",
+      "descripcion": "Pijama elegante con detalles de encaje. Guinda o Negro.",
+      "stock": "Disponible"
+    },
+    {
+      "id": 209,
+      "nombre": "Pijama Estampada",
+      "precio": "S/ 25.00 - S/ 28.00",
+      "categoria": "Pijamas",
+      "descripcion": "Modelos variados: Líneas rosas, Corazones, Vaquita, Fresitas.",
+      "stock": "Disponible"
+    }
+  ]
+}

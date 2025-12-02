@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Compra extends Model
 {
+    use HasFactory;
+
     protected $table = 'compras';
     protected $primaryKey = 'id_compra';
-    public $timestamps = false;
+
+    // --- ESTO SOLUCIONA EL ERROR SQL ---
+    public $timestamps = false; 
 
     protected $fillable = [
         'transaction_id',
@@ -18,14 +22,14 @@ class Compra extends Model
         'estado_pago',
         'datos_carrito',
         'fecha_compra',
-        'numero_tarjeta_ultimos_4',
-        'nombre_tarjeta',
-        'fecha_vencimiento',
-        'id_usuario',
+        'id_usuario', // O 'id_cliente' según tu base de datos
+        'imagen_comprobante',
     ];
 
+    // Relación con Cliente
     public function cliente()
     {
+        // Ajusta las claves si es necesario
         return $this->belongsTo(Cliente::class, 'id_usuario', 'id_cliente');
     }
 }

@@ -6,12 +6,10 @@ use App\Models\Catalogo;
 use App\Models\Compra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth; // Importante para Auth::id()
+use Illuminate\Support\Facades\Auth;
 
 class CarritoController extends Controller
 {
-    // ... (Tus funciones index, add, updateQuantity, remove, clear se mantienen IGUALES) ...
-    
     public function index() {
         $cart = session()->get('cart', []);
         $total = collect($cart)->sum(function ($item) { return $item['precio'] * $item['cantidad']; });
@@ -19,28 +17,41 @@ class CarritoController extends Controller
     }
 
     public function add(Request $request) {
-        // ... (Tu código existente) ...
         $request->validate([
             'id_producto_variacion' => 'required|integer',
             'cantidad' => 'required|integer|min:1',
             'accion' => 'required|string|in:carrito,comprar'
         ]);
+
         $id = $request->input('id_producto_variacion');
         $cantidad = $request->input('cantidad');
         $accion = $request->input('accion');
+        
         $cart = session()->get('cart', []);
+
         if(isset($cart[$id])) {
             $cart[$id]['cantidad'] += $cantidad;
         } else {
-            $producto = Catalogo::find($id);
+            // Cargamos la relación 'talla' para obtener el nombre (S, M, L)
+            $producto = Catalogo::with('talla')->find($id);
+
             if (!$producto) return redirect()->back()->with('error', 'Producto no existe.');
+
+            // Obtenemos el nombre de la talla si existe la relación
+            $nombreTalla = $producto->talla ? $producto->talla->nombre_talla : 'Única';
+
             $cart[$id] = [
-                "id" => $id, "nombre" => $producto->nombre,
-                "precio" => $producto->precio, "imagen" => $producto->imagen,
-                "cantidad" => $cantidad
+                "id" => $id, 
+                "nombre" => $producto->nombre,
+                "precio" => $producto->precio, 
+                "imagen" => $producto->imagen,
+                "cantidad" => $cantidad,
+                "talla" => $nombreTalla 
             ];
         }
+
         session()->put('cart', $cart);
+
         if ($accion === 'comprar') return redirect()->route('checkout.index');
         return redirect()->back()->with('success', 'Producto añadido!');
     }
@@ -81,7 +92,6 @@ class CarritoController extends Controller
         return view('checkout.index', compact('cart', 'total'));
     }
 
-    // --- FUNCIÓN ACTUALIZADA Y CORREGIDA ---
     public function procesarCompra(Request $request)
     {
         $cart = session()->get('cart', []);
@@ -90,49 +100,35 @@ class CarritoController extends Controller
             return redirect()->route('carrito.index')->with('error', 'Tu carrito está vacío.');
         }
 
-        // 1. Validación: Solo Yape/Plin y la IMAGEN OBLIGATORIA
         $request->validate([
             'metodo_pago' => 'required|in:plin,yape',
-            'comprobante' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
+            'comprobante' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $total = collect($cart)->sum(function ($item) {
             return $item['precio'] * $item['cantidad'];
         });
 
-        // 2. Guardar la imagen en la carpeta pública
         $nombreArchivo = null;
         if ($request->hasFile('comprobante')) {
             $imagen = $request->file('comprobante');
-            // Nombre único: tiempo + nombre original
             $nombreArchivo = time() . '_' . $imagen->getClientOriginalName();
-            
             $imagen->move(public_path('IMG/comprobantes'), $nombreArchivo);
         }
 
-        // 3. Crear Compra en la BD (Sin campos de tarjeta)
         $compra = Compra::create([
             'transaction_id'     => 'TRANS-' . Str::random(12),
             'metodo_pago'        => $request->metodo_pago,
             'monto_total'        => $total,
-            'estado_pago'        => 'pendiente', // Nace pendiente hasta que revises la foto
+            'estado_pago'        => 'pendiente',
             'datos_carrito'      => json_encode($cart),
             'fecha_compra'       => now(),
-            
-            // Usamos 'id_usuario' como aparece en tu imagen #11
             'id_usuario'         => Auth::check() ? Auth::user()->id_cliente : session('id_usuario'),
-            
-            // Campo NUEVO que debes agregar a la BD
             'imagen_comprobante' => $nombreArchivo, 
         ]);
 
-        // Vaciar carrito
         session()->forget('cart');
 
-        // Redirigir al recibo
-        // CORRECCIÓN AQUI:
-        // 1. Cambiamos 'perfil.recibo' por 'perfil.detalle' (que es como se llama en web.php)
-        // 2. Cambiamos transaction_id por id_compra (porque tu PerfilController busca por ID numérico)
         return redirect()->route('perfil.detalle', $compra->id_compra) 
             ->with('status', '¡Compra registrada! Estamos verificando tu pago.');
     }

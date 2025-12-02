@@ -1,170 +1,138 @@
 @extends('layouts.app')
 
-@section('title', 'Compras realizadas')
+@section('title', 'Gestión de Compras')
 
 @push('styles')
 <style>
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
+    /* Estilos corregidos */
+    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: hidden; }
+    th, td { padding: 12px 15px; border-bottom: 1px solid #eee; text-align: left; vertical-align: middle; }
+    th { background-color: #f8f9fa; font-weight: 600; color: #555; }
+    
+    .badge-estado { padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+    .estado-aprobado { background-color: #d1fae5; color: #065f46; }
+    .estado-pendiente { background-color: #fef9c3; color: #854d0e; }
+    .estado-rechazado { background-color: #fee2e2; color: #991b1b; }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: #fff;
-        border-radius: 12px;
-        overflow: hidden;
-        margin-top: 10px;
-    }
+    .btn-action { border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; margin-right: 5px; color: #fff; }
+    .btn-view-img { background-color: #8b5cf6; }
+    .btn-pdf { background-color: #3b82f6; }
+    .btn-delete { background-color: #ef4444; }
 
-    th, td {
-        padding: 10px 12px;
-        border-bottom: 1px solid #eee;
-        font-size: 14px;
-    }
-
-    th {
-        background: #f3f4f6;
-        text-align: left;
-    }
-
-    tr:nth-child(even) {
-        background: #f9fafb;
-    }
-
-    .badge-estado {
-        padding: 4px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-    }
-
-    .estado-completado {
-        background-color: #dcfce7;
-        color: #15803d;
-    }
-
-    .estado-pendiente {
-        background-color: #fef9c3;
-        color: #854d0e;
-    }
-
-    .estado-cancelado {
-        background-color: #fee2e2;
-        color: #b91c1c;
-    }
-
-    .btn-danger {
-        background-color: #dc2626;
-        color: #fff;
-        padding: 6px 12px;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        font-size: 13px;
-    }
-
-    .btn-danger:hover {
-        background-color: #b91c1c;
-    }
-
-    .datos-carrito {
-        max-width: 250px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+    /* Modal Styles */
+    #imageModal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+    .modal-content { position: relative; background-color: #fff; padding: 10px; border-radius: 8px; max-width: 90%; max-height: 90%; }
+    .modal-content img { max-width: 100%; max-height: 80vh; display: block; margin: 0 auto; }
+    .close-modal { position: absolute; top: -15px; right: -15px; background: white; color: black; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
 </style>
 @endpush
 
 @section('content')
 
 <div class="page-header">
-    <h1>Compras realizadas</h1>
+    <h1><i class="fa-solid fa-list-check"></i> Gestión de Compras</h1>
 </div>
 
 @if (session('status'))
-    <div style="background:#dcfce7;color:#166534;padding:10px;border-radius:8px;margin-bottom:15px;">
-        {{ session('status') }}
-    </div>
+    <div class="alert alert-success">{{ session('status') }}</div>
 @endif
 
-@if ($compras->count())
+<div class="table-responsive">
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Transacción</th>
+                <th>#ID</th>
                 <th>Cliente</th>
-                <th>Método de pago</th>
-                <th>Monto total</th>
-                <th>Estado pago</th>
+                <th>Método</th>
+                <th>Comprobante</th>
+                <th>Total</th>
+                <th>Estado</th>
                 <th>Fecha</th>
-                <th>Carrito</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-
         <tbody>
             @foreach($compras as $compra)
                 <tr>
-                    <td>{{ $compra->id_compra }}</td>
-                    <td>{{ $compra->transaction_id }}</td>
+                    <td>#{{ $compra->id_compra }}</td>
                     <td>
-                        @if($compra->cliente)
-                            {{ $compra->cliente->nombre }}
+                        {{ $compra->cliente ? $compra->cliente->nombre : 'Desconocido' }}<br>
+                        <small class="text-muted">{{ $compra->cliente ? $compra->cliente->telefono : '' }}</small>
+                    </td>
+                    <td>
+                        {{-- CORRECCIÓN ICONOS: Usamos condicionales para la extensión correcta --}}
+                        @if(strtolower($compra->metodo_pago) == 'yape')
+                            <img src="{{ asset('IMG/yape.jpg') }}" width="24" style="vertical-align: middle;"> Yape
+                        @elseif(strtolower($compra->metodo_pago) == 'plin')
+                            {{-- Asegúrate que este archivo exista en public/IMG/plin.png --}}
+                            <img src="{{ asset('IMG/plin.png') }}" width="24" style="vertical-align: middle;"> Plin
                         @else
-                            <em>Sin cliente</em>
+                            {{ ucfirst($compra->metodo_pago) }}
                         @endif
                     </td>
-                    <td>{{ ucfirst($compra->metodo_pago) }}</td>
-                    <td>S/ {{ number_format($compra->monto_total, 2, '.', ',') }}</td>
                     <td>
-                        @php
-                            $estadoClass = 'estado-' . strtolower($compra->estado_pago);
-                        @endphp
-                        <span class="badge-estado {{ $estadoClass }}">
-                            {{ ucfirst($compra->estado_pago) }}
-                        </span>
+                        @if($compra->imagen_comprobante)
+                            <button type="button" class="btn-action btn-view-img" 
+                                    onclick="openModal('{{ asset('IMG/comprobantes/' . $compra->imagen_comprobante) }}')">
+                                <i class="fa-solid fa-image"></i> Ver
+                            </button>
+                        @else
+                            <span class="text-muted text-small">Sin foto</span>
+                        @endif
                     </td>
-                    <td>{{ $compra->fecha_compra }}</td>
-                    <td class="datos-carrito" title="{{ $compra->datos_carrito }}">
-                        {{ $compra->datos_carrito }}
-                    </td>
-
-                    {{-- ACCIONES: PDF + ELIMINAR --}}
+                    <td>S/ {{ number_format($compra->monto_total, 2) }}</td>
                     <td>
-                        <div style="display: flex; gap: 6px;">
-                            {{-- Botón PDF --}}
-                            <a href="{{ route('compras.pdf', $compra->id_compra) }}"
-                               class="btn btn-sm btn-primary"
-                               target="_blank">
-                               <button class="btn-blue">PDF</button>
-                            </a>
-
-                            {{-- Botón Eliminar --}}
-                            <form action="{{ route('compras.destroy', $compra->id_compra) }}"
-                                  method="POST"
-                                  onsubmit="return confirm('¿Seguro que deseas eliminar esta compra?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn-danger">Eliminar</button>
-                            </form>
-                        </div>
+                        <form action="{{ route('compras.cambiarEstado', $compra->id_compra) }}" method="POST" style="display: flex; gap: 5px;">
+                            @csrf
+                            @method('PUT')
+                            <select name="estado" style="padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
+                                <option value="pendiente" {{ $compra->estado_pago == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                                <option value="aprobado" {{ $compra->estado_pago == 'aprobado' ? 'selected' : '' }}>Aprobado</option>
+                                <option value="rechazado" {{ $compra->estado_pago == 'rechazado' ? 'selected' : '' }}>Rechazado</option>
+                            </select>
+                            <button type="submit" class="btn-action" style="background: #10b981; margin: 0;"><i class="fa-solid fa-check"></i></button>
+                        </form>
                     </td>
-
+                    <td>{{ date('d/m/Y', strtotime($compra->fecha_compra)) }}</td>
+                    <td>
+                        <a href="{{ route('compras.pdf', $compra->id_compra) }}" target="_blank" class="btn-action btn-pdf"><i class="fa-solid fa-file-pdf"></i></a>
+                        
+                        <form action="{{ route('compras.destroy', $compra->id_compra) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar?');">
+                            @csrf @method('DELETE')
+                            <button class="btn-action btn-delete"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 
-    <div style="margin-top: 15px;">
-        {{ $compras->links() }}
+{{-- MODAL FUERA DE LA TABLA --}}
+<div id="imageModal">
+    <div class="modal-content">
+        <div class="close-modal" onclick="closeModal()">×</div>
+        <img id="modalImage" src="" alt="Comprobante">
     </div>
-@else
-    <p>No hay compras registradas.</p>
-@endif
+</div>
 
 @endsection
+
+@push('scripts')
+<script>
+    function openModal(src) {
+        document.getElementById('modalImage').src = src;
+        document.getElementById('imageModal').style.display = 'flex';
+    }
+    function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+        var modal = document.getElementById('imageModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+@endpush
