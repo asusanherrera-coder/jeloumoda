@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 01-12-2025 a las 07:57:07
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 7.4.33
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 02-12-2025 a las 08:26:39
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -288,9 +288,9 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre`, `correo`, `clave`, `telefono`, `direccion`, `fecha_registro`, `estado`) VALUES
-(1, 'usuario1', 'usuario@gmail.com', '123456789', '987654321', 'UTEC', '2025-11-30 15:09:46', 'activo'),
-(2, 'susan herrera', 'susan@gmail.com', 'susan123', '999999999', 'casa', '2025-12-01 01:05:55', 'activo'),
-(3, 'aracely', 'aracely@gmail.com', 'aracely', '999999999', 'casa', '2025-12-01 02:40:39', 'activo');
+(4, 'Sushell', 'sushellherrerasanchez@gmail.com', '$2y$12$tngZ60.7cEciCiV4VQ8pQOmwQ1715E3DZGdr04SFBvspJETNAzqSm', '999999998', 'Calle Lo Ciruelos', '2025-12-01 20:58:49', 'activo'),
+(5, 'Aracely', 'a.aracelyherrera@seoane.edu.pe', '$2y$12$af/WAYw1AZAOlUv1ykB3hekmDim.b6LgVSvs.ussNVdQ.zYCkjQMO', '999999999', 'Cristo Rey San Juan de Lurigancho', '2025-12-02 04:26:01', 'activo'),
+(6, 'Angely', 'saikosakuratheeternal7@gmail.com', '$2y$12$RK9h3dhmCpAsdZk51ets0uOw3x7M1h7nVffGfIxOT/K5lWJi5MXem', '963258741', 'san juan de lurigancho', '2025-12-02 05:17:31', 'activo');
 
 -- --------------------------------------------------------
 
@@ -304,11 +304,9 @@ CREATE TABLE `compras` (
   `metodo_pago` varchar(50) NOT NULL,
   `monto_total` decimal(10,2) NOT NULL,
   `estado_pago` varchar(50) NOT NULL DEFAULT 'completado',
+  `imagen_comprobante` varchar(255) DEFAULT NULL,
   `datos_carrito` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`datos_carrito`)),
   `fecha_compra` timestamp NOT NULL DEFAULT current_timestamp(),
-  `numero_tarjeta_ultimos_4` varchar(4) DEFAULT NULL,
-  `nombre_tarjeta` varchar(255) DEFAULT NULL,
-  `fecha_vencimiento` varchar(10) DEFAULT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -316,13 +314,14 @@ CREATE TABLE `compras` (
 -- Volcado de datos para la tabla `compras`
 --
 
-INSERT INTO `compras` (`id_compra`, `transaction_id`, `metodo_pago`, `monto_total`, `estado_pago`, `datos_carrito`, `fecha_compra`, `numero_tarjeta_ultimos_4`, `nombre_tarjeta`, `fecha_vencimiento`, `id_usuario`) VALUES
-(1, 'TRANS-ipomgzcLEPDm', 'yape', 36.00, 'completado', '{\"1\":{\"id\":1,\"nombre\":\"tela\",\"precio\":\"12.00\",\"imagen\":\"1764523983_Imagen2.png\",\"cantidad\":3}}', '2025-12-01 02:50:23', NULL, NULL, NULL, NULL),
-(2, 'TRANS-QoBvG8SGQueH', 'plin', 12.00, 'completado', '{\"1\":{\"id\":1,\"nombre\":\"tela\",\"precio\":\"12.00\",\"imagen\":\"1764523983_Imagen2.png\",\"cantidad\":1}}', '2025-12-01 04:17:46', NULL, NULL, NULL, NULL),
-(3, 'TRANS-zGUM7nQsomBl', 'plin', 24.00, 'completado', '{\"1\":{\"id\":1,\"nombre\":\"tela\",\"precio\":\"12.00\",\"imagen\":\"1764523983_Imagen2.png\",\"cantidad\":2}}', '2025-12-01 06:07:53', NULL, NULL, NULL, 2),
-(4, 'TRANS-ZXNxdNVArrVG', 'tarjeta', 72.00, 'completado', '{\"1\":{\"id\":1,\"nombre\":\"tela\",\"precio\":\"12.00\",\"imagen\":\"1764523983_Imagen2.png\",\"cantidad\":6}}', '2025-12-01 06:09:59', '', NULL, NULL, 2),
-(5, 'TRANS-GOhu58JvtKOA', 'tarjeta', 36.00, 'completado', '{\"1\":{\"id\":1,\"nombre\":\"tela\",\"precio\":\"12.00\",\"imagen\":\"1764523983_Imagen2.png\",\"cantidad\":3}}', '2025-12-01 06:12:00', '', NULL, NULL, NULL),
-(6, 'TRANS-ywvG1YEqfF2X', 'plin', 16.00, 'completado', '{\"119\":{\"id\":119,\"nombre\":\"Tank crop top color Azul\",\"precio\":\"16.00\",\"imagen\":\"POLOS\\/SINMAGAS\\/tank-crop-top-azul.jpg\",\"cantidad\":1}}', '2025-12-01 06:44:40', NULL, NULL, NULL, NULL);
+INSERT INTO `compras` (`id_compra`, `transaction_id`, `metodo_pago`, `monto_total`, `estado_pago`, `imagen_comprobante`, `datos_carrito`, `fecha_compra`, `id_usuario`) VALUES
+(8, 'TRANS-H6w3ne8DQpSY', 'yape', 100.00, 'aprobado', NULL, '{\"6\":{\"id\":\"6\",\"nombre\":\"Baggy Jeans con Bolsillo color Cl\\u00e1sico\",\"precio\":\"50.00\",\"imagen\":\"BAGGYJEANS\\/CONBOLCILLO\\/clasico.jpg\",\"cantidad\":\"2\"}}', '2025-12-02 05:29:47', 4),
+(9, 'TRANS-I5Ewod6cq63S', 'plin', 100.00, 'aprobado', NULL, '{\"4\":{\"id\":\"4\",\"nombre\":\"Baggy Jeans con Bolsillo color Cl\\u00e1sico\",\"precio\":\"50.00\",\"imagen\":\"BAGGYJEANS\\/CONBOLCILLO\\/clasico.jpg\",\"cantidad\":2}}', '2025-12-02 06:41:52', 4),
+(10, 'TRANS-dbTh5NP34RZd', 'yape', 110.00, 'aprobado', '1764641962_Captura.PNG', '{\"10\":{\"id\":\"10\",\"nombre\":\"Baggy Jeans Rasgado azul\",\"precio\":\"55.00\",\"imagen\":\"BAGGYJEANS\\/RASGADOS\\/AZUL.jpg\",\"cantidad\":2}}', '2025-12-02 07:19:22', 4),
+(11, 'TRANS-3rdyLcXRZtT0', 'plin', 40.00, 'pendiente', '1764649228_reciclaje.jpg', '{\"188\":{\"id\":\"188\",\"nombre\":\"Gorra New York color Azul\",\"precio\":\"20.00\",\"imagen\":\"GORRAS\\/new-york-azul.jpg\",\"cantidad\":2}}', '2025-12-02 09:20:28', 4),
+(12, 'TRANS-c70aDJCHzzaM', 'plin', 80.00, 'pendiente', '1764649653_reciclaje.jpg', '{\"170\":{\"id\":\"170\",\"nombre\":\"Zapatillas Nike air force 1 blancas\",\"precio\":\"40.00\",\"imagen\":\"ZAPATILLAS\\/NIKE\\/air-force-1-blancas.jpg\",\"cantidad\":\"2\"}}', '2025-12-02 09:27:33', 5),
+(13, 'TRANS-G0LvxPjRErNE', 'plin', 56.00, 'aprobado', '1764649930_reciclaje.jpg', '{\"207\":{\"id\":\"207\",\"nombre\":\"Pijama color Negro con encaje\",\"precio\":\"28.00\",\"imagen\":\"PIJAMAS\\/pijama-con-encaje-negro.jpg\",\"cantidad\":\"2\",\"talla\":\"M\"}}', '2025-12-02 09:32:10', 5),
+(14, 'TRANS-W6FWc6PVnKaK', 'yape', 25.00, 'aprobado', '1764653045_WhatsApp Image 2025-12-02 at 12.23.12 AM.jpeg', '{\"215\":{\"id\":\"215\",\"nombre\":\"Pijama de vaquita\",\"precio\":\"25.00\",\"imagen\":\"PIJAMAS\\/pijama-de-vaquita.jpeg\",\"cantidad\":\"1\",\"talla\":\"S\"}}', '2025-12-02 10:24:05', 6);
 
 -- --------------------------------------------------------
 
@@ -369,7 +368,8 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id_empleado`, `dni`, `nombres`, `telefono`, `correo`, `cargo`, `direccion`, `fecha_ingreso`, `estado`) VALUES
-(1, '75082645', 'administrador', 932912333, 'admin@gmail.com', 'administrador', 'utec', '2025-11-12', 'activo');
+(1, '75082645', 'Administrador', 932912333, 'admin@gmail.com', 'administrador', 'utec', '2025-11-12', 'activo'),
+(2, '73969936', 'Mishell', 936080878, 'a.susanherrera@seoane.edu.pe', 'Counter', 'mz d lt 8', '2025-12-01', 'activo');
 
 -- --------------------------------------------------------
 
@@ -614,13 +614,13 @@ ALTER TABLE `catalogo`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cliente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_compra` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `contacto`
@@ -632,7 +632,7 @@ ALTER TABLE `contacto`
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id_empleado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_empleado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
